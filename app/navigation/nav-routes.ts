@@ -1,0 +1,5 @@
+export const NAV_ROUTES = {
+  LANDING: "LANDING",
+  LOGIN: "LOGIN",
+  DASHBOARD: "DASHBOARD",
+};
