@@ -67,9 +67,10 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-clone-referenced-element|react-native-svg|@react-navigation|react-redux))"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^react-redux$": "<rootDir>/__mocks__/react-redux.ts"
+    }
   },
   "private": true
 }
-
-

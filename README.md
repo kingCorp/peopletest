@@ -34,3 +34,5 @@ In the output, you'll find options to open the app in a
 - [Shopify Restyle](https://shopify.github.io/restyle).
 - [Redux](https://redux.js.org).
 - [React Query](https://tanstack.com/query/v5/docs/react/overview).
+- [React Native Test Library](https://callstack.github.io/react-native-testing-library/docs/start/intro).
+- [Jest](https://jestjs.io/docs/getting-started).

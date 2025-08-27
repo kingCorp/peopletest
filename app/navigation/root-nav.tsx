@@ -24,7 +24,8 @@ function Navigation() {
   const handlePrevAppState = async () => {
     const onboard = await getSureItem(PERSIST_CONSTANTS.ONBOARDED);
     const token = await getSureItem(PERSIST_CONSTANTS.ACCESS_TOKEN);
-    if (onboard == "true") {
+    
+    if (onboard !== "true") {
       navigationService.navigate(NAV_ROUTES.LOGIN);
     } else if (token) {
       navigationService.navigate(NAV_ROUTES.DASHBOARD);

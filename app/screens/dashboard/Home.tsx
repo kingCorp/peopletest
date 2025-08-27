@@ -11,7 +11,14 @@ import { secureItem } from "@/app/utils/helper-functions";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect, useLayoutEffect, useMemo } from "react";
-import { Alert, Dimensions, FlatList, Image, Pressable } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  FlatList,
+  Image,
+  Pressable,
+  RefreshControl,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,6 +36,8 @@ export default function Home() {
     isFetchingNextPage,
     status,
     error,
+    refetch,
+    isLoading,
   } = useGetUsers();
 
   const users = useMemo(
@@ -103,6 +112,7 @@ export default function Home() {
       headerRight,
       headerShown: true,
       title: "People",
+      headerTitleAlign: "center",
     });
   }, [headerLeft, setOptions, mode]);
 
@@ -144,8 +154,12 @@ export default function Home() {
     [users]
   );
 
+  function onRefresh(): void {
+    refetch();
+  }
+
   return (
-    <Box backgroundColor="background">
+    <Box flex={1} backgroundColor="background">
       <FlatList
         data={users}
         contentContainerStyle={{
@@ -174,6 +188,9 @@ export default function Home() {
           isFetchingNextPage ? (
             <ActivityIndicator style={{ margin: 10 }} />
           ) : null
+        }
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
         }
       />
     </Box>

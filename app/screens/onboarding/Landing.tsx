@@ -96,7 +96,7 @@ export default function Landing() {
             </Box>
           ))}
         </ScrollView>
-        <Box paddingHorizontal="l">
+        <Box padding="l">
           <CustomButton
             title={selectedIndex === 2 ? "Get Started" : "Next"}
             onPress={selectedIndex === 2 ? handleGetStated : goToNext}

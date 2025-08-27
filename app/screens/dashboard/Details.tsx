@@ -41,9 +41,10 @@ export default function Details() {
       headerLeft,
       headerRight: null,
       headerShown: true,
+      headerTitleAlign: "center",
       title: data?.data?.first_name,
     });
-  }, [headerLeft, setOptions]);
+  }, [headerLeft, setOptions, data]);
 
   return (
     <Screen paddingHorizontal="m">
