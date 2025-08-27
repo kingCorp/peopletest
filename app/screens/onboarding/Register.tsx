@@ -1,5 +1,3 @@
-// import { useTranslation } from "react-i18next";
-
 import { Box } from "@/app/components/base/box";
 import { CustomButton } from "@/app/components/base/pressable-box";
 import { Screen } from "@/app/components/base/screen";
@@ -8,7 +6,7 @@ import { TextInput } from "@/app/components/base/text-input";
 import { NAV_ROUTES } from "@/app/navigation/nav-routes";
 import navigationService from "@/app/navigation/utils/navigationService";
 import { setHeaderToken } from "@/app/services/apiClient";
-import { useSignIn } from "@/app/services/hooks";
+import { useRegister } from "@/app/services/hooks";
 import { PERSIST_CONSTANTS } from "@/app/utils/constants";
 import { isValidEmail, secureItem } from "@/app/utils/helper-functions";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,7 +15,7 @@ import { useState } from "react";
 import { Alert, Dimensions, Pressable } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export default function Login() {
+export default function Register() {
   const { navigate } = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +23,13 @@ export default function Login() {
   const [passworderr, setPassworderr] = useState("");
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPass, setIsFocusedPass] = useState(false);
-    const [isSecure, setIsSecure] = useState(true);
-  const signinHook = useSignIn();
+  const [isSecure, setIsSecure] = useState(true);
+  const registerHook = useRegister();
 
   const handleSignin = () => {
+    setEmailerr("");
+    setPassworderr("");
+
     if (!isValidEmail(email)) {
       setEmailerr("Please enter a valid email");
       return;
@@ -37,9 +38,8 @@ export default function Login() {
       setPassworderr("Password should not be less than 2 characters");
       return;
     }
-    setEmailerr("");
-    setPassworderr("");
-    signinHook.mutate(
+
+    registerHook.mutate(
       { email, password },
       {
         onSuccess: (data) => {
@@ -58,7 +58,7 @@ export default function Login() {
   };
 
   return (
-    <Screen paddingHorizontal="m" isLoading={signinHook.isPending}>
+    <Screen paddingHorizontal="m" isLoading={registerHook.isPending}>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
         extraScrollHeight={20} // gives extra space above keyboard
@@ -78,10 +78,10 @@ export default function Login() {
               fontWeight="800"
               textAlign="center"
             >
-              Welcome Back!
+              Create Your Account!
             </Text>
-            <Text fontSize={15} fontWeight="600" textAlign="center">
-              Sign in to view names of people
+            <Text fontSize={15} fontWeight="400" textAlign="center">
+              Join the community and start browsing users right away.
             </Text>
           </Box>
           <Box rowGap="l" width="100%">
@@ -104,6 +104,7 @@ export default function Login() {
                 }}
                 onChangeText={setEmail}
               />
+
               {emailerr && (
                 <Text fontSize={12} style={{ color: "red" }}>
                   {emailerr}
@@ -152,18 +153,21 @@ export default function Login() {
             </Box>
             <CustomButton
               disabled={
-                email.length < 3 || password.length < 4 || signinHook.isPending
+                email.length < 3 ||
+                password.length < 4 ||
+                registerHook.isPending
               }
-              title="Sign in"
+              title="Register"
               onPress={handleSignin}
             />
           </Box>
+
           <Pressable
             style={{ marginTop: 30 }}
-            onPress={() => navigate(NAV_ROUTES.REGISTER)}
+            onPress={() => navigate(NAV_ROUTES.LOGIN)}
           >
             <Text>
-              New here? <Text fontWeight="800">Register</Text>
+              Already have an account? <Text fontWeight="800">Sign in</Text>
             </Text>
           </Pressable>
         </Box>

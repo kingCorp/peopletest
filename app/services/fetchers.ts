@@ -8,8 +8,13 @@ export const signIn = async (body: { email: string; password: string }) => {
   return response.data;
 };
 
-export const getUsers = async () => {
-  const response = await client.get(urls.users);
+export const register = async (body: { email: string; password: string }) => {
+  const response = await client.post(urls.register, body);
+  return response.data;
+};
+
+export const getUsers = async ({ pageParam = 1 }) => {
+  const response = await client.get(`${urls.users}?page=${pageParam}`);
   return response.data;
 };
 

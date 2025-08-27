@@ -22,7 +22,7 @@ export function Screen({
           justifyContent="center"
           style={[
             StyleSheet.absoluteFillObject,
-            { backgroundColor: "#000", opacity: 0.5 },
+            { backgroundColor: "#989797ff", opacity: 0.5 },
           ]}
         >
           <ActivityIndicator size="large" />
